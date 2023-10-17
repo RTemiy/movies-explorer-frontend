@@ -13,7 +13,7 @@ export default function NavTab ({isNavTabOpened, setIsNavTabOpened}){
         <p className="nav-tab__account-text">Аккаунт</p>
         <img className="nav-tab__account-logo" alt="Иконка пользователя" src={user}/>
       </Link>
-      <button onClick={()=>{setIsNavTabOpened(false)}} className="nav-tab__close-button link-hover"></button>
+      <button onClick={()=>{ setIsNavTabOpened(false) }} className="nav-tab__close-button link-hover"></button>
     </div>
   )
 }
