@@ -1,0 +1,131 @@
+.header{
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  margin: 0 70px;
+  padding: 18px 0;
+  width: calc(100% - 140px);
+  align-items: center;
+}
+
+.header__button{
+  cursor: pointer;
+  background-color: rgba(61, 220, 132, 1);
+  border-radius: 3px;
+  border: 0 transparent;
+  padding: 8px 20px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  margin: 0;
+}
+
+.header__button_no_background{
+  cursor: pointer;
+  border: 0 transparent;
+  background-color: transparent;
+  border-radius: 0;
+  padding: 0;
+  color: white;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 18px;
+}
+
+.header__select-films{
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding: 0;
+  margin: 0 0 0 45px;
+}
+
+.header__account-block{
+  margin: 0 0 0 auto;
+  gap: 7px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.header__account-block-text{
+  margin: 0 23px 0 0;
+  padding: 0;
+}
+
+.header__account-logo{
+  width: 16px;
+  height: 16px;
+  border-radius: 50px;
+  padding: 9px;
+  background-color: rgba(117, 117, 117, 0.2);
+  margin: 0;
+}
+
+.header__nav-menu{
+  border: 0;
+  background-color: transparent;
+  width: 44px;
+  height: 44px;
+  display: none;
+  margin: 0 0 0 auto;
+  background-image: url("../../images/ui/nav-menu.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (max-width: 768px) {
+  .header{
+    width: calc(100% - 60px);
+    margin: 0 30px;
+  }
+
+  .header__select-films{
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .header__account-block:nth-child(4){
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+
+  .header__nav-menu{
+    display: block;
+  }
+}
+
+@media (max-width: 510px) {
+  .header{
+    width: calc(100% - 28px);
+    margin: 0;
+    padding: 18px 14px 0 14px;
+  }
+
+  .header__button{
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    padding: 5px 12px;
+    margin: 0;
+  }
+
+  .header__account-block-text{
+    margin-right: 8px;
+  }
+
+  .header__button_no_background{
+    padding: 0;
+  }
+
+  .header__nav-menu{
+    width: 40px;
+    height: 40px;
+  }
+}
