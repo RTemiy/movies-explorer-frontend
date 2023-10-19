@@ -1,21 +1,19 @@
 import React from "react";
 import './Profile.css';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+import {useNavigate} from 'react-router-dom';
+import useFormValidator from "../../utils/useFormValidator";
 
-export default function Profile(){
+export default function Profile({logout}){
 
   const currentUserContext = React.useContext(CurrentUserContext);
   const [isRedacted, setIsRedacted] = React.useState(false);
   const [userName,setUserName] = React.useState(currentUserContext.name);
   const [userEmail,setUserEmail] = React.useState(currentUserContext.email);
 
-  function handleChangeName(e){
-    setUserName(e.target.value);
-  }
+  const {formValues, isFormValid, handleFormChange} = useFormValidator();
 
-  function handleChangeEmail(e){
-    setUserEmail(e.target.value);
-  }
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -40,22 +38,22 @@ export default function Profile(){
           <p className="profile__form-label">{currentUserContext.email}</p>
         </div>
         <div className="profile__button-block">
-          <button className="profile__link-button link-hover" onClick={() =>{setIsRedacted(true)}}>Редактировать</button>
-          <button className="profile__link-button link-hover">Выйти из аккаунта</button>
+          <button className="profile__link-button link-hover" onClick={() =>{setIsRedacted(true)}} type="button">Редактировать</button>
+          <button className="profile__link-button link-hover" onClick={()=>{navigate('/'); logout()}} type="button">Выйти из аккаунта</button>
         </div>
       </div>
       <form className={`profile__form ${!isRedacted && 'disabled'}`}>
         <div className="profile__form-block">
           <label className="profile__form-label">Имя</label>
-          <input type="text" className="profile__form-label" value={userName || ''} onChange={handleChangeName}>{}</input>
+          <input type="text" placeholder="Имя" name="name" className="profile__form-label" required minLength="2" maxLength="20" value={formValues.name || ''} onChange={handleFormChange}>{}</input>
         </div>
         <hr className="profile__form-divider"/>
         <div className="profile__form-block">
           <label className="profile__form-label">Почта</label>
-          <input type="text" className="profile__form-label" value={userEmail || ''} onChange={handleChangeEmail}></input>
+          <input type="email" placeholder="Почта" name="email" className="profile__form-label" required minLength="2" maxLength="20" value={formValues.email || ''} onChange={handleFormChange}></input>
         </div>
         <p className="profile__form-span"></p>
-        <button className="profile__form-submit button-hover" onSubmit={handleSubmit}>Сохранить</button>
+        <button className="profile__form-submit button-hover" disabled={!isFormValid} type="submit" onSubmit={handleSubmit}>Сохранить</button>
       </form>
     </section>
   )

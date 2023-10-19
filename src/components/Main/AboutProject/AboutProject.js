@@ -5,7 +5,6 @@ export default function AboutProject (){
   return(
     <section className="about-project">
       <h2 className="about-project__header">О проекте</h2>
-      <hr className="about-project__horizontal-rule"/>
       <div className="about-project__blocks">
         <article className="about-project__block">
           <h3 className="about-project__block-header">Дипломный проект включал 5 этапов</h3>
@@ -24,8 +23,8 @@ export default function AboutProject (){
           <p className="about-project__week-caption">Back-end</p>
         </div>
         <div className="about-project__week">
-          <div className="about-project__week-container_empty">
-            <p className="about-project__week-paragraph_empty">4 недели</p>
+          <div className="about-project__week-container-empty">
+            <p className="about-project__week-paragraph-empty">4 недели</p>
           </div>
           <p className="about-project__week-caption">Front-end</p>
         </div>

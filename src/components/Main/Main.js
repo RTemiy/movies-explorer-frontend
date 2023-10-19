@@ -7,12 +7,12 @@ import Portfolio from './Portfolio/Portfolio';
 
 export default function Main() {
   return(
-    <main>
+    <>
       <Promo/>
       <AboutProject/>
       <Techs/>
       <Student/>
       <Portfolio/>
-    </main>
+    </>
   );
 }

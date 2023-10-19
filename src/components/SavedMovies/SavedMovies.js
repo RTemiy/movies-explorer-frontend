@@ -4,9 +4,9 @@ import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
 
 export default function SavedMovies (){
   return(
-    <div>
+    <section>
       <Searchform/>
       <MoviesCardList/>
-    </div>
+    </section>
   )
 }

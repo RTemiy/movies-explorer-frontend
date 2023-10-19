@@ -23,7 +23,7 @@
   margin: 0;
 }
 
-.header__button_no_background{
+.header__button-no-background{
   cursor: pointer;
   border: 0 transparent;
   background-color: transparent;
@@ -50,6 +50,8 @@
   align-items: center;
   display: flex;
   flex-direction: row;
+  padding: 0;
+  list-style-type: none;
 }
 
 .header__account-block-text{
@@ -120,7 +122,7 @@
     margin-right: 8px;
   }
 
-  .header__button_no_background{
+  .header__button-no-background{
     padding: 0;
   }
 

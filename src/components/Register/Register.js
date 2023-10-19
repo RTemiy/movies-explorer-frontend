@@ -19,13 +19,13 @@ export default function Register(){
       <h1 className="register__header">Добро пожаловать!</h1>
       <form className="form" id="form-register">
         <label className="form__label">Имя</label>
-        <input className="form__input" type="text" name="name" minLength="2" maxLength="20" onChange={handleFormChange} value={formValues.name || ''}/>
+        <input className="form__input" type="text" name="name" placeholder="Имя" minLength="2" maxLength="20" onChange={handleFormChange} value={formValues.name || ''}/>
         <span className="form__span">{formErrors.name}</span>
         <label className="form__label">E-mail</label>
-        <input className="form__input" type="email" name="email" required minLength="2" maxLength="20" onChange={handleFormChange} value={formValues.email || ''} />
+        <input className="form__input" type="email" name="email" placeholder="E-mail" required minLength="2" maxLength="20" onChange={handleFormChange} value={formValues.email || ''} />
         <span className="form__span">{formErrors.email}</span>
         <label className="form__label">Пароль</label>
-        <input className="form__input" type="password" name="password" minLength="2" maxLength="20" onChange={handleFormChange} value={formValues.password || ''}/>
+        <input className="form__input" type="password" name="password" placeholder="Пароль" minLength="2" maxLength="20" onChange={handleFormChange} value={formValues.password || ''}/>
         <span className="form__span">{formErrors.password}</span>
         <button className="form__submit" type="submit" disabled={!isFormValid} onSubmit={handleRegister}>Зарегистрироваться</button>
       </form>

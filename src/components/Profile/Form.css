@@ -51,6 +51,7 @@
   border: 0;
   border-bottom: 1px solid #424242;
   outline: 0;
+  box-shadow: 0 0 20px rgba(129, 129, 129, 0.3), inset 0 0 20px rgba(129, 129, 129, 0.3);
 }
 
 .form__submit{

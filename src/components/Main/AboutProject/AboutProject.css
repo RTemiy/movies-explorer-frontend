@@ -8,14 +8,9 @@
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.88px;
-  padding: 0;
-  margin: 0;
-}
-
-.about-project__horizontal-rule{
-  opacity: .7;
-  margin: 23px 0 70px 0;
-  padding: 0;
+  padding: 0 0 23px 0;
+  margin: 0 0 70px 0;
+  border-bottom: 1px solid rgba(218, 218, 218, 1);
 }
 
 .about-project__blocks{
@@ -72,7 +67,7 @@
   line-height: normal;
 }
 
-.about-project__week-container_empty{
+.about-project__week-container-empty{
   background-color: rgba(48, 48, 48, 1);
   font-size: 14px;
   font-style: normal;
@@ -87,7 +82,7 @@
   text-align: center;
 }
 
-.about-project__week-paragraph_empty{
+.about-project__week-paragraph-empty{
   padding: 9px 0;
   margin: 0;
   text-align: center;
@@ -110,8 +105,8 @@
      padding: 90px 50px;
   }
 
-  .about-project__week-paragraph_empty{
-    padding: 9px auto;
+  .about-project__week-paragraph-empty{
+    padding: 9px 0;
   }
 
   .about-project__block-paragraph{
@@ -132,7 +127,7 @@
     line-height: normal;
   }
 
-  .about-project__week-paragraph_empty{
+  .about-project__week-paragraph-empty{
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -161,13 +156,11 @@
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.72px;
+    padding: 0 0 28px 0;
+    margin: 0 0 64px 0;
   }
 
-  .about-project__horizontal-rule{
-    margin: 28px 0 64px 0;
-  }
-
-  .about-project__week-paragraph_empty{
+  .about-project__week-paragraph-empty{
     padding: 9px 206px;
   }
 
@@ -195,7 +188,7 @@
     min-width: 100px;
   }
 
-  .about-project__week-paragraph_empty{
+  .about-project__week-paragraph-empty{
     font-size: 11px;
     font-style: normal;
     font-weight: 400;

@@ -8,9 +8,20 @@
   flex-direction: column;
   margin: 0;
   align-items: center;
-  background-color: #202020;
-  z-index: 2;
+  background-color: #2a2a2a;
+  z-index: 3;
   padding: 159px 0 0 0;
+}
+
+.nav-tab:after{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: '';
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: -1;
 }
 
 .nav-tab__button{

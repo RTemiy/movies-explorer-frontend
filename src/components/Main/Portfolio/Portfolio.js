@@ -1,16 +1,21 @@
 import React from 'react';
 import './Portfolio.css';
-import {Link} from "react-router-dom";
 
 export default function Portfolio (){
   return(
     <section className="portfolio">
       <h2 className="portfolio__header">Портфолио</h2>
-      <Link to="" className="portfolio__link"><p className="portfolio__link-text link-hover">Статичный сайт</p><p className="portfolio__link-image">↗</p></Link>
-      <hr className="portfolio__horizontal-rule"/>
-      <Link to="" className="portfolio__link"><p className="portfolio__link-text link-hover">Адаптивный сайт</p><p className="portfolio__link-image">↗</p></Link>
-      <hr className="portfolio__horizontal-rule"/>
-      <Link to="" className="portfolio__link"><p className="portfolio__link-text link-hover">Одностраничное приложение</p><p className="portfolio__link-image">↗</p></Link>
-    </section>
+      <ul className="portfolio__list">
+        <li className="portfolio__list-item">
+          <a href="https://github.com/RTemiy/how-to-learn" rel="external" target="_blank" className="portfolio__link link-hover"><p className="portfolio__link-text">Статичный сайт</p><p className="portfolio__link-image">↗</p></a>
+        </li>
+        <li className="portfolio__list-item">
+          <a href="https://github.com/RTemiy/russian-travel" rel="external" target="_blank" className="portfolio__link link-hover"><p className="portfolio__link-text">Адаптивный сайт</p><p className="portfolio__link-image">↗</p></a>
+        </li>
+        <li className="portfolio__list-item">
+          <a href="https://github.com/RTemiy/mesto" rel="external" target="_blank" className="portfolio__link link-hover"><p className="portfolio__link-text">Одностраничное приложение</p><p className="portfolio__link-image">↗</p></a>
+        </li>
+        </ul>
+      </section>
   )
 }

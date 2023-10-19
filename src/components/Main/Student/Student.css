@@ -8,14 +8,9 @@
   font-weight: 300;
   line-height: normal;
   letter-spacing: -0.88px;
-  padding: 0;
-  margin: 0;
-}
-
-.student__horizontal-rule{
-  opacity: .7;
-  margin: 23px 0 66px 0;
-  padding: 0;
+  padding: 0 0 23px 0;
+  margin: 0 0 66px 0;
+  border-bottom: 1px solid rgba(218, 218, 218, 1);
 }
 
 .student__name{
@@ -124,6 +119,13 @@
 
 }
 
+@media (max-width: 520px) {
+  .student__picture{
+    width: 232px;
+    height: 282px;
+  }
+}
+
 @media (max-width: 510px) {
 
   .student{
@@ -136,10 +138,8 @@
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.72px;
-  }
-
-  .student__horizontal-rule{
-    margin: 28px 0 60px 0;
+    padding: 0 0 28px 0;
+    margin: 0 0 60px 0;
   }
 
   .student__name{

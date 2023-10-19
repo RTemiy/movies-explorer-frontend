@@ -1,6 +1,7 @@
 .link-hover{
   transition: opacity .5s ease-in-out;
   cursor: pointer;
+  color: unset;
   text-decoration: none;
 }
 
@@ -12,6 +13,7 @@
   transition: opacity .5s ease-in-out;
   cursor: pointer;
   text-decoration: none;
+  color: unset;
 }
 
 .button-hover:hover{
