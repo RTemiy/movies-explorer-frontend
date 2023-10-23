@@ -1,0 +1,133 @@
+.movie-card{
+  display: flex;
+  padding: 0;
+  margin: 0;
+  flex-direction: column;
+  width: 270px;
+  height: 230px;
+}
+
+.movie-card__main-block{
+  display: flex;
+  padding: 0 0 25px 0;
+  margin: 0 0 6px 0;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid rgba(66, 66, 66, 1);
+}
+
+.movie-card__image{
+
+}
+
+.movie-card__name{
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding: 0;
+  margin: 8px 0 0 0;
+  max-height: 19px;
+  max-width: 243px;
+}
+
+.movie-card__like{
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+  background-image: url("../../../images/ui/no-like.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+  margin: 10px 0 0 auto;
+  padding: 0;
+}
+
+.movie-card:hover .movie-card__delete{
+  opacity: 1;
+  visibility: visible;
+}
+
+.movie-card__delete{
+  cursor: pointer;
+  border: 0;
+  background-color: rgba(49, 49, 49, 1);
+  background-image: url("../../../images/ui/dislike.svg");
+  background-size: 9px 9px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50px;
+  width: 24px;
+  height: 24px;
+  margin: 10px 0 0 auto;
+  padding: 5.64px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .5s ease-in-out;
+}
+
+.movie-card__like_active{
+  background-image: url("../../../images/ui/like.svg");
+}
+
+.movie-card__duration{
+  color: #8B8B8B;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 1100px) {
+
+  .movie-card{
+    width: 339px;
+    height: 269px;
+  }
+
+  .movie-card__image{
+    width: 339px;
+  }
+
+  .movie-card__name{
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    max-height: 16px;
+    margin-top: 11px;
+  }
+}
+
+@media (max-width: 767px) {
+  .movie-card{
+    height: 246px;
+    width: 300px;
+  }
+
+  .movie-card__image{
+    width: 300px;
+  }
+
+  .movie-card__name{
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .movie-card__duration{
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .movie-card__delete{
+    opacity: 1;
+    visibility: visible;
+  }
+}

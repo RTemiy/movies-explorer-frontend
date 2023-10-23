@@ -1,0 +1,27 @@
+.link-hover{
+  transition: opacity .5s ease-in-out;
+  cursor: pointer;
+  color: unset;
+  text-decoration: none;
+}
+
+.link-hover:hover{
+  opacity: .7;
+}
+
+.button-hover{
+  transition: opacity .5s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+  color: unset;
+}
+
+.button-hover:hover{
+  opacity: .8;
+}
+
+.disabled{
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}

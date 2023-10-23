@@ -1,0 +1,21 @@
+@import url(./vendor/fonts/InterWeb/inter.css);
+@import url(./vendor/normalize.css);
+
+.root {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  margin: 0 auto;
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: rgba(32, 32, 32, 1);
+  color: white;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body{
+  background-color: rgba(32, 32, 32, 1);
+}
