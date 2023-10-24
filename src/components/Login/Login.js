@@ -2,15 +2,36 @@ import React from 'react';
 import './Login.css';
 import '../Profile/Form.css';
 import logo from '../../images/ui/logo.svg';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import useFormValidator from "../../utils/useFormValidator";
+import {authorize} from "../../utils/Auth";
+import {api} from "../../utils/MainApi";
 
-export default function Login(){
+export default function Login({setLoggedIn, setCurrentUser}){
 
-  const {formValues, formErrors, isFormValid, handleFormChange} = useFormValidator();
+  const {formValues, formErrors, isFormValid, handleFormChange, setFormValues} = useFormValidator();
+  const navigate = useNavigate()
 
   function handleLogin(evt){
     evt.preventDefault();
+    if (!formValues.email || !formValues.password){
+      return;
+    }
+    authorize(formValues.email, formValues.password)
+      .then(data => {
+        if (data) {
+          setFormValues({email: '', password: ''});
+          setLoggedIn(true);
+          api.getUserInfo().then(res=>{
+            setCurrentUser(res);
+
+          }).catch(e =>{
+            console.log(e)
+          })
+          navigate("/movies", {replace: true});
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   return(
