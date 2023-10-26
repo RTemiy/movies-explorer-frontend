@@ -1,28 +1,40 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import './Profile.css';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
-import {useNavigate} from 'react-router-dom';
 import useFormValidator from "../../utils/useFormValidator";
+import {api} from "../../utils/MainApi";
 
-export default function Profile({logout}){
+export default function Profile({logout,setUser}){
 
-  const currentUserContext = React.useContext(CurrentUserContext);
-  const [isRedacted, setIsRedacted] = React.useState(false);
-  const [userName,setUserName] = React.useState(currentUserContext.name);
-  const [userEmail,setUserEmail] = React.useState(currentUserContext.email);
+  const currentUserContext = useContext(CurrentUserContext);
+  const [isRedacted, setIsRedacted] = useState(false);
 
-  const {formValues, isFormValid, handleFormChange} = useFormValidator();
+  const {formValues, isFormValid, handleFormChange, setFormValues} = useFormValidator();
 
-  const navigate = useNavigate();
+  const  [errorMessage, setErrorMessage] = useState('')
 
   function handleSubmit(e) {
     e.preventDefault();
+    api.sendUserInfo(formValues).then(res => {
+      setUser(res.data)
+      setIsRedacted(false)
+      setErrorMessage('Профиль успешно отредактирован');
+    }).catch(err => {
+      console.log(err);
+      setErrorMessage('При обновлении профиля произошла ошибка');
+    })
   }
 
+  function handleEdit(e) {
+    e.preventDefault();
+    setIsRedacted(true);
+    setFormValues(currentUserContext);
+  }
+
+  const isSaveAvailable = isFormValid && (formValues.name !== currentUserContext.name || formValues.email !== currentUserContext.email)
+
   React.useEffect(()=>{
-    setUserName(currentUserContext.name);
-    setUserEmail(currentUserContext.email);
-  },[currentUserContext,isRedacted]);
+  },[currentUserContext]);
 
   return(
     <section className="profile">
@@ -38,8 +50,9 @@ export default function Profile({logout}){
           <p className="profile__form-label">{currentUserContext.email}</p>
         </div>
         <div className="profile__button-block">
-          <button className="profile__link-button link-hover" onClick={() =>{setIsRedacted(true)}} type="button">Редактировать</button>
-          <button className="profile__link-button link-hover" onClick={()=>{navigate('/'); logout()}} type="button">Выйти из аккаунта</button>
+          {errorMessage !== '' ? <p style={{textAlign: "center"}}>{errorMessage}</p> : '' }
+          <button className="profile__link-button link-hover" onClick={handleEdit} type="button">Редактировать</button>
+          <button className="profile__link-button link-hover" onClick={logout} type="button">Выйти из аккаунта</button>
         </div>
       </div>
       <form className={`profile__form ${!isRedacted && 'disabled'}`}>
@@ -50,10 +63,10 @@ export default function Profile({logout}){
         <hr className="profile__form-divider"/>
         <div className="profile__form-block">
           <label className="profile__form-label">Почта</label>
-          <input type="email" placeholder="Почта" name="email" className="profile__form-label" required minLength="2" maxLength="20" value={formValues.email || ''} onChange={handleFormChange}></input>
+          <input type="email" placeholder="Почта" name="email" pattern='^.+@.+\..+$' className="profile__form-label" required minLength="2" maxLength="20" value={formValues.email || ''} onChange={handleFormChange}></input>
         </div>
         <p className="profile__form-span"></p>
-        <button className="profile__form-submit button-hover" disabled={!isFormValid} type="submit" onSubmit={handleSubmit}>Сохранить</button>
+        <button className="profile__form-submit button-hover" disabled={!isSaveAvailable} type="button" onClick={handleSubmit}>Сохранить</button>
       </form>
     </section>
   )

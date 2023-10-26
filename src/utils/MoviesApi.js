@@ -3,10 +3,11 @@ export default function getFilms() {
   return fetch('https://api.nomoreparties.co/beatfilm-movies').then(data => {
     return data.json().then(res => {
       res.forEach(film => {
-        const imageData = film.image
-        film.image = baseURL + imageData.url
-        film.thumbnail = baseURL + imageData.formats.thumbnail.url
-        
+        const imageData = film.image;
+        film.image = baseURL + imageData.url;
+        film.thumbnail = baseURL + imageData.formats.thumbnail.url;
+        film.movieId = film.id;
+        delete film.id;
       })
       return res
     })

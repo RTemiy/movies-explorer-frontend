@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import './MoviesCardList.css';
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-export default function MoviesCardList ({movies,saved}){
+export default function MoviesCardList ({movies, saved, collectFilm, savedFilms}){
   const [windowWidth,setWindowWidth] = useState(window.innerWidth)
   const changeWindowWidth = () => {setWindowWidth(window.innerWidth)}
   const [defaultMoviesAmount, setDefaultMoviesAmount] = useState(0)
@@ -19,7 +19,7 @@ export default function MoviesCardList ({movies,saved}){
       setDefaultMoviesAmount(5)
     }
 
-    if(!saved) setDefaultMoviesAmount(-1)
+    if(saved) setDefaultMoviesAmount(-1)
   },[windowWidth, saved])
 
   function showMore () {
@@ -44,6 +44,7 @@ export default function MoviesCardList ({movies,saved}){
   useEffect(() => {
     window.addEventListener('resize', changeWindowWidth)
     checkMoviesCardAmount()
+
     return() => {
       window.removeEventListener('resize', changeWindowWidth)
     }
@@ -53,12 +54,14 @@ export default function MoviesCardList ({movies,saved}){
     <div className="movies-card-list">
       <hr className="movies-card-list__horizontal-rule"/>
       <ul className="movies-card-list__container">
-        {movies && movies.slice(0,defaultMoviesAmount).map((movie) => (
-          <MoviesCard key={movie.id} movieInfo={movie} saved={saved} />
-        ))}
+        {movies ? !saved ? movies.slice(0,defaultMoviesAmount).map((movie) => (
+          <MoviesCard key={movie.movieId} movieInfo={movie} savedFilms={savedFilms} saved={saved} collectFilm={collectFilm} />
+        )) : movies.map((movie) => (
+          <MoviesCard key={movie.movieId} movieInfo={movie} savedFilms={savedFilms} saved={saved} collectFilm={collectFilm} />
+        )) : ''}
       </ul>
       <div className="movies-card-list__more">
-        {isShowMore() && saved &&<button className="movies-card-list__more-button button-hover" onClick={showMore} type="button">Ещё</button>}
+        {isShowMore() && !saved &&<button className="movies-card-list__more-button button-hover" onClick={showMore} type="button">Ещё</button>}
       </div>
     </div>
   )

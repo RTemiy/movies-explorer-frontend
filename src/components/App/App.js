@@ -1,7 +1,7 @@
 import './App.css';
 import React, {useEffect, useState} from 'react';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
-import {Route, Routes, useLocation} from 'react-router-dom';
+import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -21,27 +21,29 @@ function App() {
   const [isNavTabOpened, setIsNavTabOpened] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
-  const [savedMovies, setSavedMovies] = useState([])
+  const navigate = useNavigate();
+  const [allFilms, setAllFilms] = useState([]);
+  const [savedFilms, setSavedFilms] = useState([])
 
   useEffect(() => {
 
     if (tokenCheck()){
-      api.getLikedMovies().then(res=>{
-        setSavedMovies(res.movies)
-      }).catch(e =>{
-        console.log(e)
-      })
+      Promise.all([api.getLikedMovies(), api.getUserInfo()]).then(
+        ([liked, user]) => {
+          setAllFilms(JSON.parse(localStorage.getItem('moviesData')));
+          setSavedFilms(liked.movies)
+          setCurrentUser(user);
 
-      api.getUserInfo().then(res=>{
-        setCurrentUser(res);
+          /*liked.movies.forEach(film=> {
+            api.deleteMovie(film._id).then(console.log)
+          })*/
 
-      }).catch(e =>{
-        console.log(e)
-      })
+        }
+      ).catch(err => console.log(err))
     }
 
-    return(()=>{})
   }, [location])
+
 
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
@@ -57,6 +59,34 @@ function App() {
     else return false;
   }
 
+  function collectFilm(filmData, callback) {
+    let id;
+    if (savedFilms.some((film) => {
+      if(filmData.movieId === film.movieId) {
+        id = film._id;
+        return true;
+      } else return false;
+    })){
+      api.deleteMovie(id).then(() => {
+        setSavedFilms(savedFilms.filter(film => film._id !== id))
+        callback()
+      }).catch(console.log)
+    } else {
+      api.postMovie(filmData).then(res => {
+        setSavedFilms([res.movie, ...savedFilms])
+        callback();
+      }).catch(console.log)
+    }
+
+  }
+
+
+  function handleLogout() {
+    navigate('/');
+    setIsLoggedIn(false);
+    localStorage.clear()
+  }
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -67,11 +97,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Main/>}/>
 
-        <Route path="/movies" element={<ProtectedRoute element={Movies}/>}/>
-        <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies}/>}/>
-        <Route path="/profile" element={<ProtectedRoute element={Profile} logout={()=>{setIsLoggedIn(false)}}/>}/>
+        <Route path="/movies" element={<ProtectedRoute loggedIn={isLoggedIn} collectFilm={collectFilm} savedFilms={savedFilms} element={Movies}/>}/>
+        <Route path="/saved-movies" element={<ProtectedRoute loggedIn={isLoggedIn} collectFilm={collectFilm} savedFilms={savedFilms} initMovies={allFilms} element={SavedMovies}/>}/>
+        <Route path="/profile" element={<ProtectedRoute setUser={setCurrentUser} loggedIn={isLoggedIn} element={Profile} logout={handleLogout}/>}/>
 
-        <Route path="/signin" element={<Login setLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser()}/>}/>
+        <Route path="/signin" element={<Login setLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser}/>}/>
         <Route path="/signup" element={<Register/>}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
