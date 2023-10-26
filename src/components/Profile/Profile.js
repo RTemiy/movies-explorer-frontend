@@ -3,6 +3,7 @@ import './Profile.css';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import useFormValidator from "../../utils/useFormValidator";
 import {api} from "../../utils/MainApi";
+import {ERROR_MESSAGE} from "../../utils/consts";
 
 export default function Profile({logout,setUser}){
 
@@ -21,7 +22,9 @@ export default function Profile({logout,setUser}){
       setErrorMessage('Профиль успешно отредактирован');
     }).catch(err => {
       console.log(err);
-      setErrorMessage('При обновлении профиля произошла ошибка');
+      setErrorMessage(ERROR_MESSAGE(err));
+    }).finally(() => {
+      setTimeout(()=> {setErrorMessage('');}, 4000);
     })
   }
 
@@ -50,7 +53,7 @@ export default function Profile({logout,setUser}){
           <p className="profile__form-label">{currentUserContext.email}</p>
         </div>
         <div className="profile__button-block">
-          {errorMessage !== '' ? <p style={{textAlign: "center"}}>{errorMessage}</p> : '' }
+          {errorMessage !== '' && <p style={{textAlign: 'center'}}>{errorMessage}</p>}
           <button className="profile__link-button link-hover" onClick={handleEdit} type="button">Редактировать</button>
           <button className="profile__link-button link-hover" onClick={logout} type="button">Выйти из аккаунта</button>
         </div>
@@ -66,6 +69,7 @@ export default function Profile({logout,setUser}){
           <input type="email" placeholder="Почта" name="email" pattern='^.+@.+\..+$' className="profile__form-label" required minLength="2" maxLength="20" value={formValues.email || ''} onChange={handleFormChange}></input>
         </div>
         <p className="profile__form-span"></p>
+        {errorMessage !== '' && <p style={{textAlign: 'center'}}>{errorMessage}</p>}
         <button className="profile__form-submit button-hover" disabled={!isSaveAvailable} type="button" onClick={handleSubmit}>Сохранить</button>
       </form>
     </section>

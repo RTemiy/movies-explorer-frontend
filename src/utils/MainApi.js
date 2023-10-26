@@ -9,8 +9,7 @@ class Api {
   }
 
   _waitResponse(prom){
-    if(prom.ok) return prom.json()
-    else return Promise.reject('Ошибка: ' + prom.status)
+    return prom.ok ? prom.json() : Promise.reject(prom.status)
   }
 
   getLikedMovies() {
@@ -35,7 +34,7 @@ class Api {
         name: name,
         email: email,
       })
-    }).then(res => this._waitResponse(res))
+    }).then(this._waitResponse)
   }
 
   postMovie({country, director, duration, year, description, image, trailerLink, thumbnail, movieId, nameRU, nameEN, owner}){
@@ -68,7 +67,6 @@ class Api {
         console.log(err)
       })
   }
-
 }
 
 export const api = new Api({

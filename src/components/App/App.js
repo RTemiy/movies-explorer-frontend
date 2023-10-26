@@ -13,8 +13,9 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import {getContent} from "../../utils/Auth";
+import {authorize, getContent, register} from "../../utils/Auth";
 import {api} from "../../utils/MainApi";
+import {ERROR_MESSAGE} from "../../utils/consts";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -23,27 +24,28 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const [allFilms, setAllFilms] = useState([]);
-  const [savedFilms, setSavedFilms] = useState([])
+  const [savedFilms, setSavedFilms] = useState([]);
+
+  const [isRequestProcess, setIsRequestProcess] = useState(false);
+
+  const [registerErrorMessage, setRegisterErrorMessage] = useState('');
+
+  const [loginErrorMessage, setLoginErrorMessage] = useState('');
 
   useEffect(() => {
-
     if (tokenCheck()){
       Promise.all([api.getLikedMovies(), api.getUserInfo()]).then(
         ([liked, user]) => {
           setAllFilms(JSON.parse(localStorage.getItem('moviesData')));
           setSavedFilms(liked.movies)
           setCurrentUser(user);
-
-          /*liked.movies.forEach(film=> {
-            api.deleteMovie(film._id).then(console.log)
-          })*/
-
         }
       ).catch(err => console.log(err))
+    } else {
+      handleLogout()
     }
 
-  }, [location])
-
+  }, [isLoggedIn]);
 
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
@@ -51,7 +53,7 @@ function App() {
       getContent(jwt).then((res) => {
         if (res){
           setIsLoggedIn(true);
-          setCurrentUser(res)
+          setCurrentUser(res);
         }
       });
       return true;
@@ -77,7 +79,6 @@ function App() {
         callback();
       }).catch(console.log)
     }
-
   }
 
 
@@ -87,6 +88,35 @@ function App() {
     localStorage.clear()
   }
 
+  function onLogin({email, password}) {
+    setIsRequestProcess(true)
+    authorize(email, password).then(data => {
+      if (data.token) {
+        localStorage.setItem('jwt', data.token);
+        setIsLoggedIn(true);
+        navigate("/movies", {replace: true});
+      }
+    }).catch(err => {
+      console.log(err);
+      setRegisterErrorMessage(ERROR_MESSAGE(err));
+    }).finally(() => {
+      setTimeout(()=> {setLoginErrorMessage('');}, 2000);
+      setIsRequestProcess(false);
+    })
+  }
+
+  function onRegister({name, email, password}){
+    setIsRequestProcess(true)
+    register({name, email, password}).then(() => {
+      onLogin({email, password})
+    }).catch(err => {
+      console.log(err);
+      setRegisterErrorMessage(ERROR_MESSAGE(err));
+    }).finally(() => {
+      setTimeout(()=> {setRegisterErrorMessage('');}, 2000);
+      setIsRequestProcess(false);
+    })
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -101,8 +131,8 @@ function App() {
         <Route path="/saved-movies" element={<ProtectedRoute loggedIn={isLoggedIn} collectFilm={collectFilm} savedFilms={savedFilms} initMovies={allFilms} element={SavedMovies}/>}/>
         <Route path="/profile" element={<ProtectedRoute setUser={setCurrentUser} loggedIn={isLoggedIn} element={Profile} logout={handleLogout}/>}/>
 
-        <Route path="/signin" element={<Login setLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser}/>}/>
-        <Route path="/signup" element={<Register/>}/>
+        <Route path="/signin" element={<Login onLogin={onLogin} loginErrorMessage={loginErrorMessage} isRequestProcess={isRequestProcess}/>}/>
+        <Route path="/signup" element={<Register onRegister={onRegister} registerErrorMessage={registerErrorMessage} isRequestProcess={isRequestProcess}/>}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
       </main>

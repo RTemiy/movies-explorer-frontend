@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import './MoviesCardList.css';
 import MoviesCard from "../MoviesCard/MoviesCard";
+import {SCREEN_SIZE} from "../../utils/consts";
 
 export default function MoviesCardList ({movies, saved, collectFilm, savedFilms}){
   const [windowWidth,setWindowWidth] = useState(window.innerWidth)
@@ -9,28 +10,26 @@ export default function MoviesCardList ({movies, saved, collectFilm, savedFilms}
 
   const checkMoviesCardAmount = useCallback(() => {
 
-    if(windowWidth>1279) {
-      setDefaultMoviesAmount(8)
-    } else if (windowWidth>1101) {
-      setDefaultMoviesAmount(6)
-    } else if (windowWidth>654) {
-      setDefaultMoviesAmount(4)
-    } else if (windowWidth>300) {
-      setDefaultMoviesAmount(5)
+    if(windowWidth>SCREEN_SIZE.WIDE.WIDTH) {
+      setDefaultMoviesAmount(SCREEN_SIZE.WIDE.DEFAULT_CARDS_AMOUNT)
+    } else if (windowWidth>SCREEN_SIZE.MEDIUM.WIDTH) {
+      setDefaultMoviesAmount(SCREEN_SIZE.MEDIUM.DEFAULT_CARDS_AMOUNT)
+    } else if (windowWidth>SCREEN_SIZE.TABLET.WIDTH) {
+      setDefaultMoviesAmount(SCREEN_SIZE.TABLET.DEFAULT_CARDS_AMOUNT)
+    } else if (windowWidth>SCREEN_SIZE.MOBILE.WIDTH) {
+      setDefaultMoviesAmount(SCREEN_SIZE.MOBILE.DEFAULT_CARDS_AMOUNT)
     }
 
     if(saved) setDefaultMoviesAmount(-1)
   },[windowWidth, saved])
 
   function showMore () {
-    if(windowWidth>1279) {
-      setDefaultMoviesAmount(defaultMoviesAmount + 4)
-    } else if (windowWidth>1101) {
-      setDefaultMoviesAmount(defaultMoviesAmount + 3)
-    } else if (windowWidth>654) {
-      setDefaultMoviesAmount(defaultMoviesAmount + 2)
-    } else if (windowWidth>300) {
-      setDefaultMoviesAmount(defaultMoviesAmount + 2)
+    if(windowWidth>SCREEN_SIZE.WIDE.WIDTH) {
+      setDefaultMoviesAmount(defaultMoviesAmount + SCREEN_SIZE.WIDE.CARDS_IN_ROW)
+    } else if (windowWidth>SCREEN_SIZE.MEDIUM.WIDTH) {
+      setDefaultMoviesAmount(defaultMoviesAmount + SCREEN_SIZE.MEDIUM.CARDS_IN_ROW)
+    } else if (windowWidth>SCREEN_SIZE.MOBILE.WIDTH) {
+      setDefaultMoviesAmount(defaultMoviesAmount + SCREEN_SIZE.MOBILE.CARDS_IN_ROW)
     }
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import './MoviesCard.css';
-import transformTime from "../../../utils/transformTime";
+import transformTime from "../../utils/transformTime";
 
 export default function MoviesCard ({saved, movieInfo, collectFilm, savedFilms}){
 

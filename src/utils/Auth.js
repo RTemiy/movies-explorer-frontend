@@ -1,5 +1,9 @@
 import {BASE_URL} from "./consts";
 
+function checkResponse(res) {
+  return res.ok ? res.json() : Promise.reject(res.status)
+}
+
 export function register ({password, email, name}) {
   return fetch(`${BASE_URL}/signup`,{
     method : 'POST',
@@ -7,10 +11,7 @@ export function register ({password, email, name}) {
       'Content-Type': 'application/json'
     },
     body : JSON.stringify({password: password,email: email, name: name})
-  })
-    .then(res => res.status === 201 && res.json())
-    .then(res => res)
-    .catch(err => console.log(err))
+  }).then(checkResponse)
 }
 
 export function authorize(email,password){
@@ -20,14 +21,7 @@ export function authorize(email,password){
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({email: email, password: password})
-  }).then(res => res.json())
-    .then(data => {
-      if (data.token){
-        localStorage.setItem('jwt', data.token);
-        return data;
-      }
-    })
-    .catch(err => console.log(err))
+  }).then(checkResponse)
 }
 
 export const getContent = (token) => {

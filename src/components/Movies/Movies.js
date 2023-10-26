@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import Searchform from './Searchform/Searchform';
-import MoviesCardList from "./MoviesCardList/MoviesCardList";
+import Searchform from '../Searchform/Searchform';
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import searchFilms from "../../utils/searchFilms";
 import getFilms from "../../utils/MoviesApi";
@@ -20,7 +20,8 @@ export default function Movies ({collectFilm, savedFilms}){
     setRequest(evt.target.value)
   }
 
-  function handleSearch() {
+  function handleSearch(evt) {
+    evt && evt.preventDefault();
     const moviesDatabase = JSON.parse(localStorage.getItem('moviesData'));
 
     function search(data) {
@@ -30,18 +31,12 @@ export default function Movies ({collectFilm, savedFilms}){
         const result = searchFilms(data, request, requestIsShort);
         localStorage.setItem('lastResult', JSON.stringify(result));
         setResultMovies(result);
-        if (resultMovies.length>=1){
-          setIsError(false)
-          setErrorMessage('')
-        } else {
-          setIsError(true)
-          setErrorMessage('Ничего не найдено')
-        }
+        checkErrors(result);
       })
     }
     
     if(moviesDatabase !== null) {
-      search(moviesDatabase)
+      search(moviesDatabase);
     } else {
       setIsLoading(true);
       getFilms().then(res => {
@@ -49,6 +44,16 @@ export default function Movies ({collectFilm, savedFilms}){
         localStorage.setItem('moviesData', JSON.stringify(res));
         search(res)
       }).catch(console.log)
+    }
+  }
+
+  function checkErrors(data) {
+    if (data && data.length>=1){
+      setIsError(false)
+      setErrorMessage('')
+    } else {
+      setIsError(true)
+      setErrorMessage('Ничего не найдено')
     }
   }
 
@@ -66,16 +71,14 @@ export default function Movies ({collectFilm, savedFilms}){
   function handleSwitch(){
     setRequestIsShort(!requestIsShort);
     localStorage.setItem('lastIsShort', requestIsShort.toString());
-    handleSearch();
+    if(request !== '') {
+      handleSearch();
+    }
   }
 
   function handleCollect(filmData) {
     collectFilm(filmData, handleSearch);
   }
-
-  useEffect(() => {
-    handleSearch()
-  }, [request,requestIsShort])
 
   useEffect(() => {
     const lastRequest = localStorage.getItem('lastRequest');
@@ -86,7 +89,11 @@ export default function Movies ({collectFilm, savedFilms}){
     }
   }, []);
 
-
+  useEffect(() => {
+    if(request !== '') {
+      handleSearch();
+    }
+  }, [request,requestIsShort]);
 
   return(
     <section>

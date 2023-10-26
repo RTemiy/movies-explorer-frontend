@@ -1,11 +1,11 @@
 import './Searchform.css';
-import search from '../../../images/ui/search.svg';
+import search from '../../images/ui/search.svg';
 
 export default function Searchform ({request ,handleChangeSearchValue, handleSwitch, handleSearch, isError, errorMessage, shortFilter}){
 
   return(
     <>
-    <form id="form-search" className="search-form" noValidate>
+    <form id="form-search" className="search-form" noValidate onSubmit={(e) => handleSearch(e)}>
       <div  className="search-form__container">
         <img className="search-form__search-image" alt="иконка поиска" src={search}/>
         <input className="search-form__input" placeholder="Фильм" name="filmToSearch" type="text" onChange={handleChangeSearchValue} value={request || ''} required/>

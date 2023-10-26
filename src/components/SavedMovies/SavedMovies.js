@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import Searchform from '../Movies/Searchform/Searchform';
-import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
+import Searchform from '../Searchform/Searchform';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import searchFilms from "../../utils/searchFilms";
 
 export default function SavedMovies ({collectFilm, savedFilms}){
