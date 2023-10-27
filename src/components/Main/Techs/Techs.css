@@ -1,0 +1,149 @@
+.techs{
+  padding: 100px 70px;
+  background-color: #272727;
+}
+
+.techs__header{
+  padding: 0 0 23px 0;
+  margin: 0 0 90px 0;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: -0.88px;
+  border-bottom: 1px solid rgba(218, 218, 218, 1);
+}
+
+.techs__block-header{
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 58px;
+  letter-spacing: -2px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.techs__paragraph{
+  max-width: 460px;
+  text-align: center;
+  margin: 26px auto 100px auto;
+  padding: 0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 20px;
+  letter-spacing: -0.56px;
+
+}
+
+.techs__list{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+
+.techs__list-item{
+  width: 90px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 10px;
+  background-color: #303030;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.56px;
+}
+
+@media (max-width: 768px) {
+
+  .techs{
+    padding: 90px 50px;
+  }
+
+  .techs__paragraph{
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: -0.48px;
+    margin: 22px auto 83px auto;
+    max-width: 460px;
+  }
+
+  .techs__header{
+    margin: 0 0 80px 0;
+  }
+
+
+  .techs__list-item {
+    width: 84px;
+    height: 57px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.48px;
+  }
+
+}
+
+@media (max-width: 510px) {
+  .techs{
+    padding: 70px 18px 140px 18px;
+    background-color: transparent;
+  }
+
+  .techs__header{
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.72px;
+    padding: 0 0 28px 0;
+    margin: 0 0 60px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 1);
+  }
+
+  .techs__horizontal-rule{
+    margin: 28px 0 60px 0;
+  }
+
+  .techs__block-header{
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -1.2px;
+  }
+
+  .techs__paragraph{
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: -0.44px;
+    margin: 24px auto 50px auto;
+    text-align: center;
+  }
+
+  .techs__list{
+    padding: 0 50px 0 50px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+
+}
