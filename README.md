@@ -1,4 +1,4 @@
-# [Проектная работа "Movies-explorer-frontend"](https://rtemiy.github.io/mesto-react/)
+# [Проектная работа "Movies-explorer-frontend"]([https://rtemiy.github.io/mesto-react/](https://rtemiy.github.io/movies-explorer-frontend/))
 ### Проект курса ["Веб-разработчик"](https://praktikum.yandex.ru/web/) на платформе ["Яндекс.Практикум"](https://practicum.yandex.ru/)
 ### Описание
 - Сайт с возможностью искать фильмы и сохранять их к себе в библиотеку
